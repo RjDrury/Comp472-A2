@@ -1,6 +1,6 @@
 import numpy as np
-always_available_moves = [(1,0),(0,1),(-1,0),(0,-1)]
-diagonal_moves = [(1,1), (1,-1),(-1,0),(-1,-1)]
+from constants import *
+
 class Puzzle:
     def __init__(self, puzzle_elements, length_x=4, length_y=2):
         arr = np.array(puzzle_elements)
@@ -185,7 +185,7 @@ class Puzzle:
             list_of_states.append(self.test_move(y,x))
         return list_of_states
 
-        def perform_move(self, y_move,x_move):
+    def perform_move(self, y_move,x_move):
         '''
         input y,x
         Assuming its a valid move, this method could be used to cheat the board

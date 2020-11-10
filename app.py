@@ -1,7 +1,7 @@
 from constants import *
 from uniformCost import *
 def main():
-    puzzle_file = open(puzzle_file, "r")
+    puzzle_file = open(puzzle_directory, "r")
     puzzle_data_entries = puzzle_file.readlines()
 
     for puzzle_data in puzzle_data_entries:
@@ -12,6 +12,6 @@ def main():
         #ex
         uniformCost(puzzle_array)
 
-        
+
 if __name__ == '__main__':
     main()
