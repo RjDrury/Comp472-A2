@@ -5,7 +5,7 @@ class Puzzle:
     def __init__(self, puzzle_elements, length_x=4, length_y=2):
         arr = np.array(puzzle_elements)
         self.state = np.reshape(arr, (length_y, length_x))
-        self.goal_state = 
+        self.goal_state = []
 
     def is_equal(self,test_state):
         '''
@@ -14,8 +14,19 @@ class Puzzle:
         if (self.state == test_state).all():
             return True
         return False
-    
+    def set_goal_state(self,state, length_x=4, length_y=2):
+        '''
+        Takes a goal state and assigns it to this object
+        '''
+        if isinstance(state, list):
+            arr = np.array(puzzle_elements)
+            self.goal_state = np.reshape(arr, (length_y, length_x))
+        else:
+            self.goal_state = state
     def current_state_is_goal_state(self):
+        '''
+        compare if goal state is the current state
+        '''
         if (self.state == self.goal_state).all():
             return True
         return False
@@ -24,6 +35,9 @@ class Puzzle:
         print(self.state)
 
     def is_empty_in_corner(self):
+        '''
+        return true if 0 is in one of the four corners
+        '''
         y_length, x_length = self.state.shape
         y_coordinate, x_coordinate = np.where(self.state == 0)
 
@@ -36,6 +50,9 @@ class Puzzle:
             return True
         return False
     def get_list_of_moves(self):
+        '''
+        return list of possible moves
+        '''
         list_of_moves = []
         zero_is_in_corner = self.is_empty_in_corner()
         y_coordinate, x_coordinate = np.where(self.state == 0)
@@ -81,6 +98,10 @@ class Puzzle:
         return list_of_moves
 
     def get_dict_of_moves_with_cost(self):
+        '''
+        return dict of costs with possible moves
+        ex, 1: [[1,0],[0,1]] 2:[-1,0]
+        '''
         dict_of_costs_with_moves = {}
         zero_is_in_corner = self.is_empty_in_corner()
         y_coordinate, x_coordinate = np.where(self.state == 0)
@@ -128,43 +149,11 @@ class Puzzle:
                     
         return dict_of_costs_with_moves
 
-    def perform_move(self, y_move,x_move):
-        '''
-        Assuming its a valid move, this method could be used to cheat the board
-        '''
-        y_length, x_length = self.state.shape
-        y_coordinate, x_coordinate = np.where(self.state == 0)
-        y_coordinate_of_zero = y_coordinate[0]
-        x_coordinate_of_zero = x_coordinate[0]
-
-        y_coordinate_of_swap_location = (y_coordinate_of_zero + y_move)%y_length
-        x_coordinate_of_swap_location = (x_coordinate_of_zero + x_move)%x_length
-
-        swap_value = self.state[y_coordinate_of_swap_location][x_coordinate_of_swap_location]
-        self.state[y_coordinate_of_swap_location][x_coordinate_of_swap_location] = 0
-        self.state[y_coordinate_of_zero, x_coordinate_of_zero] = swap_value
-        
-    def test_move(self,y_move,x_move):
-
-        '''
-        Assuming its a valid move, this method could be used to cheat the board
-        '''
-        test_state = np.copy(self.state)
-        y_length, x_length = test_state.shape
-        y_coordinate, x_coordinate = np.where(test_state == 0)
-        y_coordinate_of_zero = y_coordinate[0]
-        x_coordinate_of_zero = x_coordinate[0]
-
-        y_coordinate_of_swap_location = (y_coordinate_of_zero + y_move)%y_length
-        x_coordinate_of_swap_location = (x_coordinate_of_zero + x_move)%x_length
-
-        swap_value = test_state[y_coordinate_of_swap_location][x_coordinate_of_swap_location]
-        test_state[y_coordinate_of_swap_location][x_coordinate_of_swap_location] = 0
-        test_state[y_coordinate_of_zero, x_coordinate_of_zero] = swap_value
-
-        return test_state
 
     def get_dict_of_possible_states_with_cost(self):
+        '''
+        return a dict of cost: states
+        '''
         dict_of_moves = self.get_dict_of_moves_with_cost()
         dict_of_states = {}
 
@@ -186,9 +175,50 @@ class Puzzle:
         return dict_of_states
 
     def get_list_of_possible_states(self):
+        '''
+        return list on np arrays with the associated states
+        '''
         list_of_moves = self.get_list_of_moves()
         list_of_states = []
 
         for y,x in list_of_moves:
             list_of_states.append(self.test_move(y,x))
         return list_of_states
+
+        def perform_move(self, y_move,x_move):
+        '''
+        input y,x
+        Assuming its a valid move, this method could be used to cheat the board
+        '''
+        y_length, x_length = self.state.shape
+        y_coordinate, x_coordinate = np.where(self.state == 0)
+        y_coordinate_of_zero = y_coordinate[0]
+        x_coordinate_of_zero = x_coordinate[0]
+
+        y_coordinate_of_swap_location = (y_coordinate_of_zero + y_move)%y_length
+        x_coordinate_of_swap_location = (x_coordinate_of_zero + x_move)%x_length
+
+        swap_value = self.state[y_coordinate_of_swap_location][x_coordinate_of_swap_location]
+        self.state[y_coordinate_of_swap_location][x_coordinate_of_swap_location] = 0
+        self.state[y_coordinate_of_zero, x_coordinate_of_zero] = swap_value
+        
+    def test_move(self,y_move,x_move):
+
+        '''
+        input is y,x
+        Return the state the board would be in after the entered move
+        '''
+        test_state = np.copy(self.state)
+        y_length, x_length = test_state.shape
+        y_coordinate, x_coordinate = np.where(test_state == 0)
+        y_coordinate_of_zero = y_coordinate[0]
+        x_coordinate_of_zero = x_coordinate[0]
+
+        y_coordinate_of_swap_location = (y_coordinate_of_zero + y_move)%y_length
+        x_coordinate_of_swap_location = (x_coordinate_of_zero + x_move)%x_length
+
+        swap_value = test_state[y_coordinate_of_swap_location][x_coordinate_of_swap_location]
+        test_state[y_coordinate_of_swap_location][x_coordinate_of_swap_location] = 0
+        test_state[y_coordinate_of_zero, x_coordinate_of_zero] = swap_value
+
+        return test_state
