@@ -156,22 +156,24 @@ class Puzzle:
         '''
         dict_of_moves = self.get_dict_of_moves_with_cost()
         dict_of_states = {}
-
-        for y,x in dict_of_moves[1]:
-            if 1 in dict_of_states:
-                dict_of_states[1].append(self.test_move(y,x))
-            else:
-                dict_of_states[1] = [self.test_move(y,x)]
-        for y,x in dict_of_moves[2]:
-            if 2 in dict_of_states:
-                dict_of_states[2].append(self.test_move(y,x))
-            else:
-                dict_of_states[2] = [self.test_move(y,x)]
-        for y,x in dict_of_moves[3]:
-            if 3 in dict_of_states:
-                dict_of_states[3].append(self.test_move(y,x))
-            else:
-                dict_of_states[3] = [self.test_move(y,x)]
+        if 1 in dict_of_moves:
+            for y,x in dict_of_moves[1]:
+                if 1 in dict_of_states:
+                    dict_of_states[1].append(self.test_move(y,x))
+                else:
+                    dict_of_states[1] = [self.test_move(y,x)]
+        if 2 in dict_of_moves:
+            for y,x in dict_of_moves[2]:
+                if 2 in dict_of_states:
+                    dict_of_states[2].append(self.test_move(y,x))
+                else:
+                    dict_of_states[2] = [self.test_move(y,x)]
+        if 3 in dict_of_moves:
+            for y,x in dict_of_moves[3]:
+                if 3 in dict_of_states:
+                    dict_of_states[3].append(self.test_move(y,x))
+                else:
+                    dict_of_states[3] = [self.test_move(y,x)]
         return dict_of_states
 
     def get_list_of_possible_states(self):
