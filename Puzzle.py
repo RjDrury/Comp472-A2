@@ -19,14 +19,17 @@ class Puzzle:
         Takes a goal state and assigns it to this object
         '''
         if isinstance(state, list):
-            arr = np.array(puzzle_elements)
-            self.goal_state = np.reshape(arr, (length_y, length_x))
+            self.goal_state = state
         else:
             self.goal_state = state
     def current_state_is_goal_state(self):
         '''
         compare if goal state is the current state
         '''
+        if isinstance(self.goal_state, list):
+            for goal in self.goal_state:
+                if (self.state == goal).all():
+                    return True
         if (self.state == self.goal_state).all():
             return True
         return False
@@ -224,3 +227,8 @@ class Puzzle:
         test_state[y_coordinate_of_zero, x_coordinate_of_zero] = swap_value
 
         return test_state
+    def get_state_as_array(self):
+        arr = []
+        arr.extend(self.state[0])
+        arr.extend(self.state[1])
+        return arr

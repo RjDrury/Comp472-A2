@@ -1,6 +1,6 @@
 from Puzzle import Puzzle
 
-puzzle = Puzzle([1,2,0,4,5,6,7,8])
+puzzle = Puzzle([0,2,3,4,5,6,7,8])
 puzzle.display_state()
 # print(puzzle.get_list_of_moves())
 #print(puzzle.get_dict_of_moves_with_cost())
