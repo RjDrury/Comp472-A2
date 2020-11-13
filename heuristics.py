@@ -12,8 +12,8 @@ def h0_naive(puzzle):
 
 
 # hamming loss
-def h1_hamming(puzzle):
-    return np.count_nonzero(np.bitwise_xor(puzzle.state, puzzle.goal_state))
+def h1_hamming(puzzle_state, goal_state):
+    return np.count_nonzero(np.bitwise_xor(puzzle_state, goal_state))
 
 
 # Manhattan loss
