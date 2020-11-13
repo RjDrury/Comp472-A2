@@ -1,4 +1,3 @@
-import numpy as np
 from Puzzle import *
 from constants import *
 
@@ -14,12 +13,7 @@ def h0_naive(puzzle):
 
 # hamming loss
 def h1_hamming(puzzle):
-    if puzzle.goal_state == []:
-        puzzle.goal_state = goal_state1
-
-    config = puzzle.state
-    goal = puzzle.goal_state
-    return np.count_nonzero(np.bitwise_xor(config, goal))
+    return np.count_nonzero(np.bitwise_xor(puzzle.state, puzzle.goal_state))
 
 
 # Manhattan loss
