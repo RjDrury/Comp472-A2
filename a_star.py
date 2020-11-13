@@ -13,7 +13,7 @@ class Node:
         print(str(self.state)+"\nparent index: "+str(self.parent_index)+"\ncost from start: "+str(self.cost_to_initial))
 
 # test puzzle
-test_puzzle = Puzzle([1,2,3,4,5,6,0,7])
+test_puzzle = Puzzle([1,0,3,4,2,5,6,7])
 
 ''' global variables'''
 select_heuristic = 1
@@ -84,6 +84,18 @@ def a_star(puzzle):
         puzzle_goal1.set_goal_state(goal_state1)
         puzzle_goal2.set_goal_state(goal_state2)
 
+    # trace path
+    done = False
     print(current.state)
+    if not np.array_equal(current.state, start_node.state):
+        print("    ^\n    |")
+        while not done is True:
+            prev = closed_list[current.parent_index]
+            print(prev.state)
+            if np.array_equal(prev.state, start_node.state):
+                done = True
+            else:
+                print("    ^\n    |")
+                current = prev
 
 a_star(test_puzzle)
