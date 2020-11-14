@@ -1,6 +1,7 @@
 from constants import *
 from uniformCost import *
 from heuristics import *
+from greedy_best_first import *
 
 def main():
     puzzle_file = open(puzzle_directory, "r")
