@@ -13,8 +13,8 @@ def uniform_cost(puzzle_array,puzzle_index):
     visited_states = []
     lowest_cost_key = 0
     next_state = Board_State_History(0,[0],[0],[0])
-    search_file = open(str(puzzle_index)+"_ucs_search.txt", "w")
-    solution_file = open(str(puzzle_index)+"_ucs_solution.txt", "w")
+    search_file = open("output/"+str(puzzle_index)+"_ucs_search.txt", "w")
+    solution_file = open("output/"+str(puzzle_index)+"_ucs_solution.txt", "w")
     iteration = 0
     while(not puzzle.current_state_is_goal_state()):
         visited_states.append(puzzle.state)
