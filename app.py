@@ -1,5 +1,7 @@
 from constants import *
 from uniformCost import *
+from heuristics import *
+
 def main():
     puzzle_file = open(puzzle_directory, "r")
     puzzle_data_entries = puzzle_file.readlines()
@@ -12,6 +14,8 @@ def main():
         #ex
         uniform_cost(puzzle_array, puzzle_index)
         puzzle_index += 1
+
+        # h2_manhathan(puzzle_array)
 
 if __name__ == '__main__':
     main()
