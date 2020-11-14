@@ -1,6 +1,7 @@
 from constants import *
 from uniformCost import *
 from heuristics import *
+from a_star import *
 
 def main():
     puzzle_file = open(puzzle_directory, "r")
