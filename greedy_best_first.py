@@ -9,5 +9,5 @@ def solve_gbfs(puzzle_array, puzzle_index):
     open = []
     closed = []
 
-    search_file = open("output/" + str(puzzle_index) + "_gbfs_search.txt", "w")
-    solution_file = open("output/" + str(puzzle_index) + "_gbfs_solution.txt", "w")
+    search_file = open("output/" + str(puzzle_index) + "_gbfs-h1_search.txt", "w")
+    solution_file = open("output/" + str(puzzle_index) + "_gbfs-h1_solution.txt", "w")

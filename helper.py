@@ -6,7 +6,16 @@ def has_state_been_visited(test_state, visited_states):
 
 
 def write_solution_file(puzzle, board_history, file, cost, time_to_complete):
-    file.write("0 0 " + str(puzzle.get_state_as_array())+"\n")
+    file.write("0 0 " + getArrayInString(puzzle.get_state_as_array())+"\n")
     for i in range(len(board_history.past_moves)):
-        file.write(str(board_history.past_moves[i]) + str(board_history.past_move_costs[i]) + str(board_history.get_state_as_array(board_history.past_states[i])) +"\n")
-    file.write(cost + time_to_complete)
+        file.write(str(board_history.past_moves[i]) + " " + str(board_history.past_move_costs[i]) + " " + getArrayInString(board_history.get_state_as_array(board_history.past_states[i])) +"\n")
+    file.write(cost + " " + time_to_complete)
+
+
+def getArrayInString(array):
+    finalString = ""
+    if isinstance(array, list):
+        for i in range(len(array)):
+            finalString += str(array[i]) + " "
+
+    return finalString

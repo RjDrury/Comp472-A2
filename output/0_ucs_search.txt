@@ -1,2 +1,2 @@
 
-Execution time = 0.9996891021728516 
+Execution time = 0.6799697875976562 
