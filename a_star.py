@@ -1,8 +1,9 @@
-import numpy as np
 from heuristics import *
 from Puzzle import *
+from helper import *
 import heapq
 import time
+
 ''' node class stores a state with a reference to it's parent and the cost to the initial state'''
 class Node:
     def __init__(self, parent_index, state, cost_to_initial):
@@ -23,8 +24,7 @@ def h(puzzle_state, goal_state, heuristic):
     if heuristic == 1:
         return h1_hamming(puzzle_state, goal_state)
     if heuristic == 2:
-        puzzle_array = np.ravel(puzzle_state).tolist()
-        return h2_manhathan(puzzle_array)
+        return h2_manhathan(puzzle_state, goal_state)
 
 "converts numerical heuristic to text"
 def h_to_text(h):
@@ -125,18 +125,19 @@ def a_star(puzzle, heuristic_no):
 def solve_astar(puzzle_index, puzzle_array):
     puzzle= Puzzle(puzzle_array)
     for i in range(1, 3):
+        print('- heuristic:', i)
         start_time = time.time()
         solution, visited, f_log = a_star(puzzle, i)
         end_time = time.time()
         if solution == 0:
-            with open(str(puzzle_index) + "_astar-" + h_to_text(i) + "_search.txt", "w") as search_file:
+            with open("output/" + str(puzzle_index) + "_astar-" + h_to_text(i) + "_search.txt", "w") as search_file:
                 search_file.write("no solution")
-            with open(str(puzzle_index) + "_astar-" + h_to_text(i) + "_solution.txt", "w") as solution_file:
+            with open("output/" + str(puzzle_index) + "_astar-" + h_to_text(i) + "_solution.txt", "w") as solution_file:
                 solution_file.write("no solution")
         else:
             solution.reverse()
             index = 0
-            with open(str(puzzle_index) + "_astar-" + h_to_text(i) + "_solution.txt", "w") as solution_file:
+            with open("output/" + str(puzzle_index) + "_astar-" + h_to_text(i) + "_solution.txt", "w") as solution_file:
                 for step in solution:
                     if index == 0:
                         tc = "0 0"
@@ -145,14 +146,14 @@ def solve_astar(puzzle_index, puzzle_array):
                         tc = str(np.amax(np.bitwise_xor(step.state, solution[index - 1].state))) \
                              +" "+str(step.cost_to_initial - solution[index-1].cost_to_initial)
                         index += 1
-                    solution_file.write(tc+" "+str(np.ravel(step.state))+"\n")
+                    solution_file.write(tc+" " + getArrayInString(step.state) +"\n")
                 solution_file.write(str(visited[len(visited) - 1].cost_to_initial)+" "+str(round(end_time - start_time, 4)))
 
             index = 0
-            with open(str(puzzle_index) + "_astar-" + h_to_text(i) + "_search.txt", "w") as search_file:
+            with open("output/" + str(puzzle_index) + "_astar-" + h_to_text(i) + "_search.txt", "w") as search_file:
                 for visit in visited:
                     search_file.write(str(f_log[index])+" "+str(visit.cost_to_initial)+" "+str(f_log[index]-visit.cost_to_initial)
-                                      +" "+str(np.ravel(visit.state))+"\n")
+                                      + " " + getArrayInString(visit.state)+"\n")
                     index += 1
 
 #solve_astar(0, [1,0,3,4,2,5,6,7])

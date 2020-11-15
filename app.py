@@ -12,12 +12,14 @@ def main():
         puzzle_array = puzzle_data.split(" ")
         puzzle_array = [int(i) for i in puzzle_array] 
 
-        #call method for search with puzzle array to make your puzzle object within the search
-        #ex
-        uniform_cost(puzzle_array, puzzle_index)
-        solve_astar(puzzle_index, puzzle_array)
+        PUZZLE = puzzle_array
+        print('Uniform Cost for puzzle:', puzzle_index)
+        uniform_cost(PUZZLE, puzzle_index)
+        print('A star for puzzle:', puzzle_index)
+        solve_astar(puzzle_index, PUZZLE)
+        print('Greedy Best First for puzzle:', puzzle_index)
+        solve_gbfs(PUZZLE, puzzle_index)
         puzzle_index += 1
-        # solve_gbfs(puzzle_array, puzzle_index)
 
 if __name__ == '__main__':
     main()

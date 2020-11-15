@@ -1,9 +1,7 @@
 from Puzzle import Puzzle
-import numpy as np
 from constants import *
 from helper import *
 import time
-
 
 def uniform_cost(puzzle_array,puzzle_index):
     start_time = time.time()
@@ -19,7 +17,7 @@ def uniform_cost(puzzle_array,puzzle_index):
     solution_file = open("output/"+str(puzzle_index)+"_ucs_solution.txt", "w")
     iteration = 0
 
-    while not puzzle.current_state_is_goal_state():
+    while not puzzle.current_state_is_goal_state() and time.time() - start_time < 60:
         visited_states.append(puzzle.state)
         iteration += 1
 
@@ -47,13 +45,16 @@ def uniform_cost(puzzle_array,puzzle_index):
                 potential_states_with_history[key + lowest_cost_key].extend(new_potentials_with_history[key])
             else:
                 potential_states_with_history[key + lowest_cost_key] = new_potentials_with_history[key]
-        search_file.write("f(n) = g(n) = " +str(lowest_cost_key) + " State " + str(puzzle.get_state_as_array())+"\n")
+        search_file.write(str(0) + " " + str(0) + " " + str(0) + " " + getArrayInString(puzzle.get_state_as_array())+"\n")
 
     search_file.write("\n")
-    search_file.write("Execution time = " + str((time.time() - start_time) *1000)  + " ")
     time_to_complete = str(time.time() - start_time)
-    print("Reached goal state, lowest cost : "+ str(lowest_cost_key))
-    write_solution_file(puzzle, next_state, solution_file, str(lowest_cost_key) , time_to_complete)
+
+    if not puzzle.current_state_is_goal_state():
+        solution_file.write("no solution")
+    else:
+        print("Reached goal state, lowest cost : " + str(lowest_cost_key))
+        write_solution_file(puzzle, next_state, solution_file, str(lowest_cost_key) , time_to_complete)
 
 
 class Board_State_History:
@@ -106,3 +107,10 @@ def covert_old_state_to_map_new_dict(old_state, children):
             else:
                 new_dict[key] = [Board_State_History(state,old_states,old_moves,old_costs)]
     return new_dict
+
+
+def write_solution_file(puzzle, board_history, file, cost, time_to_complete):
+    file.write("0 0 " + getArrayInString(puzzle.get_state_as_array())+"\n")
+    for i in range(len(board_history.past_moves)):
+        file.write(str(board_history.past_moves[i]) + " " + str(board_history.past_move_costs[i]) + " " + getArrayInString(board_history.get_state_as_array(board_history.past_states[i])) +"\n")
+    file.write(cost + " " + time_to_complete)

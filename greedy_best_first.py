@@ -8,10 +8,11 @@ test_puzzle = [1,0,3,4,
                2,5,6,7]
 
 class Node:
-    def __init__(self, parent, state, heuristic):
+    def __init__(self, parent, state, heuristic, cost):
         self.state = state
         self.parent = parent
         self.heuristic = heuristic
+        self.cost = cost
 
     def print_node(self):
         print(str(self.state)+" "+str(self.parent)+" "+str(self.heuristic))
@@ -40,34 +41,56 @@ def gbfs(puzzle, heuristicIndex, start_time):
         puzzle.set_goal_state(goal_state1)
 
 
-    # start
-    start_node = Node(None, puzzle.state, 0)
+    # initial values
+    start_node = Node(None, puzzle.state, 0, 0)
     open = [start_node]
     close = []
-    history = []
-    cost = 0
 
-    while not puzzle.current_state_is_goal_state() or time.time() - start_time == 60:
+    # while current state is not the goal and time is not 1 minute
+    while not puzzle.current_state_is_goal_state() and time.time() - start_time < 60:
+        children = puzzle.get_dict_of_possible_states_with_cost()
+        for cost in children:
+            for node in children[cost]:
+                new_node = Node(puzzle.state, node, h(node, puzzle.goal_state), cost)
+                # append the children is not present in any list (not visited & not to be visited)
+                if (not present_in_array(open, new_node)) and (not present_in_array(close, new_node)):
+                    open.append(new_node)
 
-        children = puzzle.get_list_of_possible_states()
-        for node in children:
-            new_node = Node(puzzle.state, node, h(node, puzzle.goal_state))
-            if (not present_in_array(open, new_node)) and (not present_in_array(close, new_node)):
-                open.append(new_node)
-
+        # sort open list (next nodes to be visited) -> priority queue
         open = sorted(open, key=lambda node: node.heuristic)
+        # pop current state from open list and close the node (set as visited)
         open,node_popped = pop_element_from_array(open, puzzle.state)
         puzzle.state = open[0].state
         close.append(node_popped)
 
 
-    print('FOUND IT')
-    print('close: ')
-    for ele in close:
-        print(ele.state.flatten().tolist())
-        print(ele.heuristic)
+    solution = []
+    cost = 0
+    # if reach goal append goal to visited and start solution list
+    if puzzle.current_state_is_goal_state():
+        open, goal_state = pop_element_from_array(open, puzzle.state)
+        close.append(goal_state)
+        solution.append(goal_state)
+    else:
+        solution = "no solution"
+        return solution, close, cost
 
-    return close, history, cost
+    # get solution from closed nodes + total cost os solution
+    for ele in solution:
+        if get_parent_in_array(close, ele) is None:
+            break
+        solution.append(get_parent_in_array(close, ele))
+        cost += ele.cost
+    solution.reverse()
+
+    return solution, close
+
+
+def get_parent_in_array(array, child):
+    for index, ele in enumerate(array):
+        if child is not None and (child.parent == array[index].state).all():
+            return array[index]
+    return None
 
 
 def present_in_array(array, element):
@@ -87,21 +110,32 @@ def pop_element_from_array(initial_array, element):
 
 
 def solve_gbfs(puzzle_array, puzzle_index):
-    puzzle = Puzzle(puzzle_array)
-
-    for i in range(0, 3):
+    for i in range(1, 3):
+        print('- heuristic:', i)
+        puzzle = Puzzle(puzzle_array)
         start_time = time.time()
         search_file = open("output/" + str(puzzle_index) + "_gbfs-h" + str(i) + "_search.txt", "w")
         solution_file = open("output/" + str(puzzle_index) + "_gbfs-h" + str(i) + "_solution.txt", "w")
 
-        solution, history, cost = gbfs(puzzle, i, start_time)
-        # print(solution)
-        # print(history)
-        # print(cost)
-
-        # hitory = {past_moves[], past_move_costs[], past_states[], past_states[], get_state_as_array()}
-        # time_to_complete = str(time.time() - start_time)
-        # write_solution_file(puzzle, history, solution_file, str(cost), time_to_complete)
+        solution, history = gbfs(puzzle, i, start_time)
+        write_search(search_file, history, i)
+        write_solution(solution_file, start_time, solution)
 
 
-solve_gbfs(test_puzzle, 1)
+
+def write_search(search_file, history, i):
+    for ele in history:
+        if i == 0:
+            ele.heuristic = 0
+        search_file.write(str(0) + " " + str(0) + " " + str(ele.heuristic) + " " + getArrayInString(ele.state) +"\n")
+
+
+def write_solution(solution_file, start_time, solution):
+    total_cost = 0
+    time_to_complete = str(time.time() - start_time)
+
+    for ele in solution:
+        total_cost += ele.cost
+        solution_file.write(str(get_index_of_zero(ele.state)) + " " + str(ele.cost) + " " + getArrayInString(ele.state) +"\n")
+
+    solution_file.write(str(total_cost) + " " + str(time_to_complete))
