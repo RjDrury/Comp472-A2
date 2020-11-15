@@ -53,22 +53,31 @@ def a_star(puzzle, heuristic_no):
     start_time = time.time()
     open_list = []
     closed_list = []
+    f_log = []
     entry = 0 # serves as a tie break for items with the same priority so they are popped in FIFO order
+
     start_node = Node(None, puzzle.state, 0)
-    heapq.heappush(open_list, (get_best_f(start_node, heuristic_no), entry, start_node))
+    f_init= get_best_f(start_node, heuristic_no)
+    f_log.append(f_init)
+    heapq.heappush(open_list, (f_init, entry, start_node))
     current = heapq.heappop(open_list)[2] # set current node to the initial state to start the search
     puzzle_goal1 = puzzle_goal2 = Puzzle(current.state)
     puzzle_goal1.set_goal_state(goal_state1)
     puzzle_goal2.set_goal_state(goal_state2)
 
-    while not (np.array_equal(puzzle_goal1.state, goal_state1) or np.array_equal(puzzle_goal2.state, goal_state2)) or time.time() - start_time == 60:
-        #get moves from current node
+    while not np.array_equal(puzzle_goal1.state, goal_state1) or np.array_equal(puzzle_goal2.state, goal_state2):
+        if time.time() - start_time > 60:
+            return 0, 0, 0
+
+        # get moves from current node
         moves = puzzle_goal1.get_dict_of_possible_states_with_cost()
+
         # add moves to open
         for key in moves:
             for new_state in moves[key]:
                 new = Node(len(closed_list), new_state, current.cost_to_initial + key)
                 new_f = get_best_f(new, heuristic_no)
+                f_log.append(new_f)
 
                 #check if state is already in array
                 if not len(open_list) == 0:
@@ -91,34 +100,59 @@ def a_star(puzzle, heuristic_no):
 
         # get next state
         current = heapq.heappop(open_list)[2]
+
         # update puzzle
         puzzle_goal1 = puzzle_goal2 = Puzzle(current.state)
         puzzle_goal1.set_goal_state(goal_state1)
         puzzle_goal2.set_goal_state(goal_state2)
 
+    # append solution state to closed
+    closed_list.append(current)
+
     # trace path
     done = False
-    solution_path = [current.state]
-    #print(current.state)
+    solution_path = [current]
     if not np.array_equal(current.state, start_node.state):
-        #print("    ^\n    |")
         while not done is True:
             prev = closed_list[current.parent_index]
-            solution_path.append(prev.state)
-            #print(prev.state)
+            solution_path.append(prev)
             if np.array_equal(prev.state, start_node.state):
                 done = True
             else:
-                #print("    ^\n    |")
                 current = prev
-    # returns solution path and visited states arrays
-    return solution_path.reverse(), closed_list
+    return solution_path, closed_list, f_log
 
 def solve_astar(puzzle_index, puzzle_array):
     puzzle= Puzzle(puzzle_array)
-    start_time = time.time()
     for i in range(1, 3):
-        solution, visited = a_star(puzzle, i)
-        search_file = open(str(puzzle_index) + "_astar-" + h_to_text(i) + "_search.txt", "w")
+        start_time = time.time()
+        solution, visited, f_log = a_star(puzzle, i)
+        end_time = time.time()
+        if solution == 0:
+            with open(str(puzzle_index) + "_astar-" + h_to_text(i) + "_search.txt", "w") as search_file:
+                search_file.write("no solution")
+            with open(str(puzzle_index) + "_astar-" + h_to_text(i) + "_solution.txt", "w") as solution_file:
+                solution_file.write("no solution")
+        else:
+            solution.reverse()
+            index = 0
+            with open(str(puzzle_index) + "_astar-" + h_to_text(i) + "_solution.txt", "w") as solution_file:
+                for step in solution:
+                    if index == 0:
+                        tc = "0 0"
+                        index += 1
+                    else:
+                        tc = str(np.amax(np.bitwise_xor(step.state, solution[index - 1].state))) \
+                             +" "+str(step.cost_to_initial - solution[index-1].cost_to_initial)
+                        index += 1
+                    solution_file.write(tc+" "+str(np.ravel(step.state))+"\n")
+                solution_file.write(str(visited[len(visited) - 1].cost_to_initial)+" "+str(round(end_time - start_time, 4)))
 
-a_star(test_puzzle, 1)
+            index = 0
+            with open(str(puzzle_index) + "_astar-" + h_to_text(i) + "_search.txt", "w") as search_file:
+                for visit in visited:
+                    search_file.write(str(f_log[index])+" "+str(visit.cost_to_initial)+" "+str(f_log[index]-visit.cost_to_initial)
+                                      +" "+str(np.ravel(visit.state))+"\n")
+                    index += 1
+
+#solve_astar(0, [1,0,3,4,2,5,6,7])
