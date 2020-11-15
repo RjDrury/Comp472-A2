@@ -100,9 +100,8 @@ def solve_gbfs(puzzle_array, puzzle_index):
         # print(cost)
 
         # hitory = {past_moves[], past_move_costs[], past_states[], past_states[], get_state_as_array()}
-
-        time_to_complete = str(time.time() - start_time)
-        write_solution_file(puzzle, history, solution_file, str(cost), time_to_complete)
+        # time_to_complete = str(time.time() - start_time)
+        # write_solution_file(puzzle, history, solution_file, str(cost), time_to_complete)
 
 
 solve_gbfs(test_puzzle, 1)
