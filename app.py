@@ -2,6 +2,7 @@ from constants import *
 from uniformCost import *
 from heuristics import *
 from a_star import *
+from greedy_best_first import *
 
 def main():
     puzzle_file = open(puzzle_directory, "r")
@@ -16,8 +17,7 @@ def main():
         uniform_cost(puzzle_array, puzzle_index)
         solve_astar(puzzle_index, puzzle_array)
         puzzle_index += 1
-
-        # h2_manhathan(puzzle_array)
+        # solve_gbfs(puzzle_array, puzzle_index)
 
 if __name__ == '__main__':
     main()
