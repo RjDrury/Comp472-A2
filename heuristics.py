@@ -1,4 +1,3 @@
-import numpy as np
 from Puzzle import *
 from constants import *
 

@@ -1,6 +1,7 @@
 from constants import *
 from uniformCost import *
 from heuristics import *
+from a_star import *
 from greedy_best_first import *
 
 def main():
@@ -14,6 +15,7 @@ def main():
         #call method for search with puzzle array to make your puzzle object within the search
         #ex
         uniform_cost(puzzle_array, puzzle_index)
+        solve_astar(puzzle_index, puzzle_array)
         puzzle_index += 1
         # solve_gbfs(puzzle_array, puzzle_index)
 
