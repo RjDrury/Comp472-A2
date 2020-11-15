@@ -15,8 +15,7 @@ def main():
         #ex
         uniform_cost(puzzle_array, puzzle_index)
         puzzle_index += 1
-
-        # h2_manhathan(puzzle_array)
+        # solve_gbfs(puzzle_array, puzzle_index)
 
 if __name__ == '__main__':
     main()
