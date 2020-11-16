@@ -7,15 +7,13 @@ import time
 ''' node class stores a state with a reference to it's parent and the cost to the initial state'''
 class Node:
     def __init__(self, parent_index, state, cost_to_initial):
+        self.f_val = None
         self.state = state
         self.parent_index = parent_index
         self.cost_to_initial = cost_to_initial
 
     def print_node(self):
         print(str(self.state)+"\nparent index: "+str(self.parent_index)+"\ncost from start: "+str(self.cost_to_initial))
-
-# test puzzle
-test_puzzle = Puzzle([1,0,3,4,2,5,6,7])
 
 '''computes heuristic'''
 def h(puzzle_state, goal_state, heuristic):
@@ -53,13 +51,12 @@ def a_star(puzzle, heuristic_no):
     start_time = time.time()
     open_list = []
     closed_list = []
-    f_log = []
     entry = 0 # serves as a tie break for items with the same priority so they are popped in FIFO order
 
     start_node = Node(None, puzzle.state, 0)
     f_init= get_best_f(start_node, heuristic_no)
-    f_log.append(f_init)
-    heapq.heappush(open_list, (f_init, entry, start_node))
+    start_node.f_val = f_init
+    heapq.heappush(open_list, (start_node.f_val, entry, start_node))
     current = heapq.heappop(open_list)[2] # set current node to the initial state to start the search
     puzzle_goal1 = puzzle_goal2 = Puzzle(current.state)
     puzzle_goal1.set_goal_state(goal_state1)
@@ -75,24 +72,38 @@ def a_star(puzzle, heuristic_no):
         # add moves to open
         for key in moves:
             for new_state in moves[key]:
+                already_added = False
                 new = Node(len(closed_list), new_state, current.cost_to_initial + key)
                 new_f = get_best_f(new, heuristic_no)
-                f_log.append(new_f)
+                new.f_val = new_f
 
-                #check if state is already in array
                 if not len(open_list) == 0:
+                    # check if state is already in open_list
                     for i in range(0, len(open_list)):
-                        if (new.state == open_list[i][2].state).all() and open_list[i][0] < new_f:
-                            open_list[i] = (new_f, entry, new)
+                        if (new.state == open_list[i][2].state).all() and open_list[i][0] < new.f_val:
+                            open_list[i] = (new.f_val, entry, new)
                             entry +=1
                             heapq.heapify(open_list)
+                            already_added = True
                             break
-
-                    heapq.heappush(open_list, (new_f, entry, new))
-                    entry += 1
+                        # check for state in closed list
+                    if not len(closed_list) == 0:
+                        for j in range(0, len(closed_list)):
+                            if (new.state == closed_list[j].state).all():
+                                if closed_list[j].f_val > new.f_val:
+                                    heapq.heappush(open_list, (new.f_val, entry, new))
+                                    entry += 1
+                                    already_added = True
+                                    break
+                                if closed_list[j].f_val <= new.f_val:
+                                    already_added = True
+                                    break
+                        if not already_added:
+                            heapq.heappush(open_list, (new.f_val, entry, new))
+                            entry += 1
 
                 else:
-                    heapq.heappush(open_list, (new_f, entry, new))
+                    heapq.heappush(open_list, (new.f_val, entry, new))
                     entry+=1
 
         # close current state
@@ -120,14 +131,14 @@ def a_star(puzzle, heuristic_no):
                 done = True
             else:
                 current = prev
-    return solution_path, closed_list, f_log
+    return solution_path, closed_list
 
 def solve_astar(puzzle_index, puzzle_array):
     puzzle= Puzzle(puzzle_array)
     for i in range(1, 3):
         print('- heuristic:', i)
         start_time = time.time()
-        solution, visited, f_log = a_star(puzzle, i)
+        solution, visited = a_star(puzzle, i)
         end_time = time.time()
         if solution == 0:
             with open("output/" + str(puzzle_index) + "_astar-" + h_to_text(i) + "_search.txt", "w") as search_file:
@@ -152,8 +163,8 @@ def solve_astar(puzzle_index, puzzle_array):
             index = 0
             with open("output/" + str(puzzle_index) + "_astar-" + h_to_text(i) + "_search.txt", "w") as search_file:
                 for visit in visited:
-                    search_file.write(str(f_log[index])+" "+str(visit.cost_to_initial)+" "+str(f_log[index]-visit.cost_to_initial)
+                    search_file.write(str(visit.f_val)+" "+str(visit.cost_to_initial)+" "+str(visit.f_val-visit.cost_to_initial)
                                       + " " + getArrayInString(visit.state)+"\n")
                     index += 1
 
-#solve_astar(0, [1,0,3,4,2,5,6,7])
+#solve_astar(4, [1,0,3,4,2,5,6,7])
