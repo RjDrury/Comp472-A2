@@ -2,7 +2,7 @@ import random
 def generate_puzzles():
     output_file = open("random_puzzles.txt", "w")
     for i in range (50):
-        arr = [0,1,2,3,4,5,6,7,8,9]
+        arr = [0,1,2,3,4,5,6,7]
         random.shuffle(arr)
         
 
