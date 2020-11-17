@@ -58,7 +58,8 @@ def a_star(puzzle, heuristic_no):
     start_node.f_val = f_init
     heapq.heappush(open_list, (start_node.f_val, entry, start_node))
     current = heapq.heappop(open_list)[2] # set current node to the initial state to start the search
-    puzzle_goal1 = puzzle_goal2 = Puzzle(current.state)
+    puzzle_goal1 = Puzzle(current.state)
+    puzzle_goal2 = Puzzle(current.state)
     puzzle_goal1.set_goal_state(goal_state1)
     puzzle_goal2.set_goal_state(goal_state2)
 
@@ -80,7 +81,7 @@ def a_star(puzzle, heuristic_no):
                 if not len(open_list) == 0:
                     # check if state is already in open_list
                     for i in range(0, len(open_list)):
-                        if (new.state == open_list[i][2].state).all() and open_list[i][0] < new.f_val:
+                        if (new.state == open_list[i][2].state).all() and open_list[i][0] > new.f_val:
                             open_list[i] = (new.f_val, entry, new)
                             entry +=1
                             heapq.heapify(open_list)
@@ -113,7 +114,8 @@ def a_star(puzzle, heuristic_no):
         current = heapq.heappop(open_list)[2]
 
         # update puzzle
-        puzzle_goal1 = puzzle_goal2 = Puzzle(current.state)
+        puzzle_goal1 = Puzzle(current.state)
+        puzzle_goal2 = Puzzle(current.state)
         puzzle_goal1.set_goal_state(goal_state1)
         puzzle_goal2.set_goal_state(goal_state2)
 
@@ -167,4 +169,4 @@ def solve_astar(puzzle_index, puzzle_array):
                                       + " " + getArrayInString(visit.state)+"\n")
                     index += 1
 
-#solve_astar(4, [4,5,6, 7, 0, 2, 3, 1])
+solve_astar(99, [1, 3, 5, 7, 2, 4, 6, 0])
