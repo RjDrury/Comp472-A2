@@ -1,7 +1,7 @@
 uc total lines: 273666
 uc average lines: 2736.66
 uc total no solutions: 32
-uc average no solutions: 0.16
+uc average no solutions: 0.32
 uc total cost: 174
 uc average cost: 2.5970149253731343
 uc total execution: 299.3729736804962
@@ -10,7 +10,7 @@ uc average execution: 4.468253338514869
 astar-h1 total lines: 19899
 astar-h1 average lines: 198.99
 astar-h1 total no solutions: 46
-astar-h1 average no solutions: 0.23
+astar-h1 average no solutions: 0.46
 astar-h1 total cost: 389
 astar-h1 average cost: 7.203703703703703
 astar-h1 total execution: 258.5956
@@ -19,7 +19,7 @@ astar-h1 average execution: 4.788807407407408
 astar-h2 total lines: 29901
 astar-h2 average lines: 299.01
 astar-h2 total no solutions: 2
-astar-h2 average no solutions: 0.01
+astar-h2 average no solutions: 0.02
 astar-h2 total cost: 811
 astar-h2 average cost: 8.275510204081632
 astar-h2 total execution: 387.1789000000001

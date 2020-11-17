@@ -76,7 +76,7 @@ def get_amounts(files, algorithm, file):
 
 def get_empty(files, algorithm, file):
     total = 0
-    total_solution_files = len(files)
+    total_solution_files = 0
 
     for fileName in files:
         if fileName.find('solution'):
