@@ -157,14 +157,14 @@ def solve_astar(puzzle_index, puzzle_array):
                         tc = str(np.amax(np.bitwise_xor(step.state, solution[index - 1].state))) \
                              +" "+str(step.cost_to_initial - solution[index-1].cost_to_initial)
                         index += 1
-                    solution_file.write(tc+" " + getArrayInString(step.state) +"\n")
+                    solution_file.write(tc +" " + get_array_in_string(step.state) + "\n")
                 solution_file.write(str(visited[len(visited) - 1].cost_to_initial)+" "+str(round(end_time - start_time, 4)))
 
             index = 0
             with open("output/" + str(puzzle_index) + "_astar-" + h_to_text(i) + "_search.txt", "w") as search_file:
                 for visit in visited:
-                    search_file.write(str(visit.f_val)+" "+str(visit.cost_to_initial)+" "+str(visit.f_val-visit.cost_to_initial)
-                                      + " " + getArrayInString(visit.state)+"\n")
+                    search_file.write(str(visit.f_val) +" " + str(visit.cost_to_initial) +" " + str(visit.f_val-visit.cost_to_initial)
+                                      + " " + get_array_in_string(visit.state) + "\n")
                     index += 1
 
 #solve_astar(4, [4,5,6, 7, 0, 2, 3, 1])
