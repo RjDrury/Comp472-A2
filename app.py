@@ -22,7 +22,6 @@ def main():
         print('Greedy Best First for puzzle:', puzzle_index)
         solve_gbfs(PUZZLE, puzzle_index)
         puzzle_index += 1
-        break
 
 if __name__ == '__main__':
     main()

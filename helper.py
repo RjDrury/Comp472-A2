@@ -95,7 +95,7 @@ def get_solution(files, algorithm, file):
     total_files = 0
 
     for fileName in files:
-        if fileName.find('solution'):
+        if fileName.find('solution') != -1:
             lines = open(fileName).read().splitlines()
             if len(lines) != 0 and lines[0] != 'no solution':
                 total_files += 1
@@ -109,3 +109,6 @@ def get_solution(files, algorithm, file):
     file.write(str(algorithm) + " total execution: " + str(total_execution) + "\n")
     file.write(str(algorithm) + " average execution: " + str(total_execution / total_files) + "\n")
 
+
+if __name__ == '__main__':
+    get_analysis()

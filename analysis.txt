@@ -3,43 +3,43 @@ uc average lines: 2736.66
 uc total no solutions: 32
 uc average no solutions: 0.64
 uc total cost: 174
-uc average cost: 2.5970149253731343
+uc average cost: 10.235294117647058
 uc total execution: 299.3729736804962
-uc average execution: 4.468253338514869
+uc average execution: 17.61017492238213
 
 astar-h1 total lines: 19899
 astar-h1 average lines: 198.99
 astar-h1 total no solutions: 23
 astar-h1 average no solutions: 0.46
 astar-h1 total cost: 389
-astar-h1 average cost: 7.203703703703703
+astar-h1 average cost: 14.407407407407407
 astar-h1 total execution: 258.5956
-astar-h1 average execution: 4.788807407407408
+astar-h1 average execution: 9.577614814814815
 
 astar-h2 total lines: 29901
 astar-h2 average lines: 299.01
 astar-h2 total no solutions: 1
 astar-h2 average no solutions: 0.02
 astar-h2 total cost: 811
-astar-h2 average cost: 8.275510204081632
-astar-h2 total execution: 387.1789000000001
-astar-h2 average execution: 3.9508051020408175
+astar-h2 average cost: 16.551020408163264
+astar-h2 total execution: 387.1789
+astar-h2 average execution: 7.901610204081632
 
 gbfs-h1 total lines: 4067
 gbfs-h1 average lines: 40.67
 gbfs-h1 total no solutions: 0
 gbfs-h1 average no solutions: 0.0
 gbfs-h1 total cost: 1241
-gbfs-h1 average cost: 12.41
+gbfs-h1 average cost: 24.82
 gbfs-h1 total execution: 12.531550168991089
-gbfs-h1 average execution: 0.1253155016899109
+gbfs-h1 average execution: 0.2506310033798218
 
 gbfs-h2 total lines: 5218
 gbfs-h2 average lines: 52.18
 gbfs-h2 total no solutions: 0
 gbfs-h2 average no solutions: 0.0
 gbfs-h2 total cost: 1224
-gbfs-h2 average cost: 12.24
+gbfs-h2 average cost: 24.48
 gbfs-h2 total execution: 16.910858392715454
-gbfs-h2 average execution: 0.16910858392715455
+gbfs-h2 average execution: 0.3382171678543091
 
