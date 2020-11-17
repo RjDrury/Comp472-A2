@@ -1,3 +1,4 @@
+import os
 def has_state_been_visited(test_state, visited_states):
     for state in visited_states:
         if (state == test_state).all():
@@ -22,3 +23,4 @@ def get_index_of_zero(array):
     for index, ele in enumerate(array_as_list):
         if ele == 0:
             return index
+

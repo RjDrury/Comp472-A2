@@ -134,7 +134,7 @@ def a_star(puzzle, heuristic_no):
     return solution_path, closed_list
 
 def solve_astar(puzzle_index, puzzle_array):
-    puzzle= Puzzle(puzzle_array)
+    puzzle = Puzzle(puzzle_array)
     for i in range(1, 3):
         print('- heuristic:', i)
         start_time = time.time()
