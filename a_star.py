@@ -64,7 +64,7 @@ def a_star(puzzle, heuristic_no):
 
     while not np.array_equal(puzzle_goal1.state, goal_state1) or np.array_equal(puzzle_goal2.state, goal_state2):
         if time.time() - start_time > 60:
-            return 0, 0, 0
+            return 0, 0
 
         # get moves from current node
         moves = puzzle_goal1.get_dict_of_possible_states_with_cost()
@@ -167,4 +167,4 @@ def solve_astar(puzzle_index, puzzle_array):
                                       + " " + getArrayInString(visit.state)+"\n")
                     index += 1
 
-#solve_astar(4, [1,0,3,4,2,5,6,7])
+#solve_astar(4, [4,5,6, 7, 0, 2, 3, 1])
