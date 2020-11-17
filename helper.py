@@ -24,3 +24,4 @@ def get_index_of_zero(array):
         if ele == 0:
             return index
 
+
