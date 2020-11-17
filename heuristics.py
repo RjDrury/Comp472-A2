@@ -20,5 +20,7 @@ def h1_hamming(puzzle_state, goal_state):
 def h2_manhathan(puzzle_state, goal_state):
     state = puzzle_state.flatten().tolist()
     goal = goal_state.flatten().tolist()
-    return sum(abs(a % 4 - b % 4) + abs(a // 4 - b // 4)
-               for a, b in ((state.index(i), goal.index(i)) for i in range(0, 8)))
+    distances = [abs(a % 4 - b % 4) + abs(a // 4 - b // 4)
+               for a, b in ((state.index(i), goal.index(i)) for i in range(0, 8))]
+    distances = [x - 1 if x >= 4 else x for x in distances]
+    return sum(distances)
