@@ -45,7 +45,7 @@ def uniform_cost(puzzle_array,puzzle_index):
                 potential_states_with_history[key + lowest_cost_key].extend(new_potentials_with_history[key])
             else:
                 potential_states_with_history[key + lowest_cost_key] = new_potentials_with_history[key]
-        search_file.write(str(0) + " " + str(0) + " " + str(0) + " " + getArrayInString(puzzle.get_state_as_array())+"\n")
+        search_file.write(str(0) + " " + str(lowest_cost_key) + " " + str(0) + " " + getArrayInString(puzzle.get_state_as_array())+"\n")
 
     search_file.write("\n")
     time_to_complete = str(time.time() - start_time)
