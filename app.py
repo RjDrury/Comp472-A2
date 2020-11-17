@@ -11,17 +11,18 @@ def main():
     for puzzle_data in puzzle_data_entries:
         puzzle_array = puzzle_data.split(" ")
         puzzle_array.remove('\n')
-        print(puzzle_array)
+
         puzzle_array = [int(i) for i in puzzle_array] 
-        
+        print(puzzle_array)
         PUZZLE = puzzle_array
-        #print('Uniform Cost for puzzle:', puzzle_index)
-        #uniform_cost(PUZZLE, puzzle_index)
+        print('Uniform Cost for puzzle:', puzzle_index)
+        uniform_cost(PUZZLE, puzzle_index)
         print('A star for puzzle:', puzzle_index)
         solve_astar(puzzle_index, PUZZLE)
-        #print('Greedy Best First for puzzle:', puzzle_index)
-        #solve_gbfs(PUZZLE, puzzle_index)
+        print('Greedy Best First for puzzle:', puzzle_index)
+        solve_gbfs(PUZZLE, puzzle_index)
         puzzle_index += 1
+        break
 
 if __name__ == '__main__':
     main()
