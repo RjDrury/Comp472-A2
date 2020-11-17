@@ -79,7 +79,7 @@ def get_empty(files, algorithm, file):
     total_solution_files = 0
 
     for fileName in files:
-        if fileName.find('solution'):
+        if fileName.find('solution') != -1:
             total_solution_files += 1
 
             if open(fileName).readline() == 'no solution':
@@ -108,3 +108,4 @@ def get_solution(files, algorithm, file):
     file.write(str(algorithm) + " average cost: " + str(total_cost / total_files) + "\n")
     file.write(str(algorithm) + " total execution: " + str(total_execution) + "\n")
     file.write(str(algorithm) + " average execution: " + str(total_execution / total_files) + "\n")
+
