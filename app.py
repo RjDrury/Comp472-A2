@@ -1,6 +1,4 @@
-from constants import *
 from uniformCost import *
-from heuristics import *
 from a_star import *
 from greedy_best_first import *
 
@@ -15,12 +13,12 @@ def main():
         puzzle_array = [int(i) for i in puzzle_array] 
         print(puzzle_array)
         PUZZLE = puzzle_array
-        #print('Uniform Cost for puzzle:', puzzle_index)
-        #uniform_cost(PUZZLE, puzzle_index)
+        print('Uniform Cost for puzzle:', puzzle_index)
+        uniform_cost(PUZZLE, puzzle_index)
         print('A star for puzzle:', puzzle_index)
         solve_astar(puzzle_index, PUZZLE)
-        #print('Greedy Best First for puzzle:', puzzle_index)
-        #solve_gbfs(PUZZLE, puzzle_index)
+        print('Greedy Best First for puzzle:', puzzle_index)
+        solve_gbfs(PUZZLE, puzzle_index)
         puzzle_index += 1
 
 

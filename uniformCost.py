@@ -3,6 +3,7 @@ from constants import *
 from helper import *
 import time
 
+
 def uniform_cost(puzzle_array,puzzle_index):
     start_time = time.time()
     puzzle = Puzzle(puzzle_array)

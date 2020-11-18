@@ -1,4 +1,3 @@
-from Puzzle import *
 from constants import *
 
 
