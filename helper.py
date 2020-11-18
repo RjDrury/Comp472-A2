@@ -70,9 +70,9 @@ def get_amounts(files, algorithm, file):
     total_solution_files = 0
 
     for fileName in files:
-        if fileName.find('solution') != -1:
-            lines = open(fileName).read().splitlines()
-            if len(lines) != 0 and lines[0] != 'no solution':
+        lines = open(fileName).read().splitlines()
+        if len(lines) != 0 and lines[0] != 'no solution':
+            if fileName.find('solution') != -1:
                 total_solution_files += 1
                 total_solution_lines += len(open(fileName).readlines())
 

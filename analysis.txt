@@ -1,5 +1,5 @@
-uc total search lines: 33
-uc average search lines: 1.0
+uc total search lines: 50745
+uc average search lines: 2985.0
 uc total solution lines: 182
 uc average solution lines: 10.705882352941176
 uc total no solutions: 33
@@ -9,8 +9,8 @@ uc average cost: 10.235294117647058
 uc total execution: 306.81960701942444
 uc average execution: 18.048212177613202
 
-astar-h1 total search lines: 24
-astar-h1 average search lines: 1.0
+astar-h1 total search lines: 19272
+astar-h1 average search lines: 741.2307692307693
 astar-h1 total solution lines: 343
 astar-h1 average solution lines: 13.192307692307692
 astar-h1 total no solutions: 24
@@ -20,8 +20,8 @@ astar-h1 average cost: 14.461538461538462
 astar-h1 total execution: 258.01759999999996
 astar-h1 average execution: 9.923753846153845
 
-astar-h2 total search lines: 2
-astar-h2 average search lines: 1.0
+astar-h2 total search lines: 29093
+astar-h2 average search lines: 606.1041666666666
 astar-h2 total solution lines: 726
 astar-h2 average solution lines: 15.125
 astar-h2 total no solutions: 2
@@ -31,4 +31,25 @@ astar-h2 average cost: 16.625
 astar-h2 total execution: 387.132
 astar-h2 average execution: 8.06525
 
-gbfs-h1 total search lines: 0
+gbfs-h1 total search lines: 3240
+gbfs-h1 average search lines: 64.8
+gbfs-h1 total solution lines: 827
+gbfs-h1 average solution lines: 16.54
+gbfs-h1 total no solutions: 0
+gbfs-h1 average no solutions: 0.0
+gbfs-h1 total cost: 1241
+gbfs-h1 average cost: 24.82
+gbfs-h1 total execution: 12.531550168991089
+gbfs-h1 average execution: 0.2506310033798218
+
+gbfs-h2 total search lines: 4267
+gbfs-h2 average search lines: 85.34
+gbfs-h2 total solution lines: 951
+gbfs-h2 average solution lines: 19.02
+gbfs-h2 total no solutions: 0
+gbfs-h2 average no solutions: 0.0
+gbfs-h2 total cost: 1224
+gbfs-h2 average cost: 24.48
+gbfs-h2 total execution: 16.910858392715454
+gbfs-h2 average execution: 0.3382171678543091
+
