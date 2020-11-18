@@ -1,11 +1,7 @@
-import numpy as np
 from heuristics import *
 from Puzzle import *
 from helper import *
 import time
-
-test_puzzle = [1,0,3,4,
-               2,5,6,7]
 
 class Node:
     def __init__(self, parent, state, heuristic, cost):
