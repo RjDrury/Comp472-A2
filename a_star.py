@@ -40,6 +40,8 @@ def f(node, goal_state, heuristic):
 
 ''' determines if goal state 1 or 2 has a better f value and returns the better one'''
 def get_best_f(node, heuristic):
+    print(goal_state1)
+    print(goal_state2)
     if f(node, goal_state1, heuristic) > f(node, goal_state2, heuristic):
         return f(node, goal_state2, heuristic)
     else:
@@ -54,7 +56,7 @@ def a_star(puzzle, heuristic_no):
     entry = 0 # serves as a tie break for items with the same priority so they are popped in FIFO order
 
     start_node = Node(None, puzzle.state, 0)
-    f_init= get_best_f(start_node, heuristic_no)
+    f_init = get_best_f(start_node, heuristic_no)
     start_node.f_val = f_init
     heapq.heappush(open_list, (start_node.f_val, entry, start_node))
     current = heapq.heappop(open_list)[2] # set current node to the initial state to start the search
@@ -80,7 +82,7 @@ def a_star(puzzle, heuristic_no):
                 if not len(open_list) == 0:
                     # check if state is already in open_list
                     for i in range(0, len(open_list)):
-                        if (new.state == open_list[i][2].state).all() and open_list[i][0] < new.f_val:
+                        if (new.state == open_list[i][2].state).all() and open_list[i][0] > new.f_val:
                             open_list[i] = (new.f_val, entry, new)
                             entry +=1
                             heapq.heapify(open_list)

@@ -52,6 +52,10 @@ def uniform_cost(puzzle_array,puzzle_index):
 
     if not puzzle.current_state_is_goal_state():
         solution_file.write("no solution")
+        search_file.close()
+        repopen_search_file = open("output/"+str(puzzle_index)+"_ucs_search.txt", "w")
+        repopen_search_file.write("no solution")
+
     else:
         print("Reached goal state, lowest cost : " + str(lowest_cost_key))
         write_solution_file(puzzle, next_state, solution_file, str(lowest_cost_key) , time_to_complete)

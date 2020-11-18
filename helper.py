@@ -64,14 +64,26 @@ def get_analysis():
 
 
 def get_amounts(files, algorithm, file):
-    total_lines = 0
-    total_files = len(files)
+    total_search_lines = 0
+    total_search_files = 0
+    total_solution_lines = 0
+    total_solution_files = 0
 
     for fileName in files:
-        total_lines += len(open(fileName).readlines())
+        if fileName.find('solution') != -1:
+            lines = open(fileName).read().splitlines()
+            if len(lines) != 0 and lines[0] != 'no solution':
+                total_solution_files += 1
+                total_solution_lines += len(open(fileName).readlines())
 
-    file.write(str(algorithm) + " total lines: " + str(total_lines) + "\n")
-    file.write(str(algorithm) + " average lines: " + str(total_lines / total_files) + "\n")
+            else:
+                total_search_files += 1
+                total_search_lines += len(open(fileName).readlines())
+
+    file.write(str(algorithm) + " total search lines: " + str(total_search_lines) + "\n")
+    file.write(str(algorithm) + " average search lines: " + str(total_search_lines / total_search_files) + "\n")
+    file.write(str(algorithm) + " total solution lines: " + str(total_solution_lines) + "\n")
+    file.write(str(algorithm) + " average solution lines: " + str(total_solution_lines / total_solution_files) + "\n")
 
 
 def get_empty(files, algorithm, file):

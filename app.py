@@ -17,11 +17,11 @@ def main():
         PUZZLE = puzzle_array
         print('Uniform Cost for puzzle:', puzzle_index)
         uniform_cost(PUZZLE, puzzle_index)
-        print('A star for puzzle:', puzzle_index)
-        solve_astar(puzzle_index, PUZZLE)
-        print('Greedy Best First for puzzle:', puzzle_index)
-        solve_gbfs(PUZZLE, puzzle_index)
+        # print('A star for puzzle:', puzzle_index)
+        # solve_astar(puzzle_index, PUZZLE)
+        # print('Greedy Best First for puzzle:', puzzle_index)
+        # solve_gbfs(PUZZLE, puzzle_index)
         puzzle_index += 1
-
+        break
 if __name__ == '__main__':
     main()
