@@ -127,7 +127,7 @@ def write_search(search_file, history, i):
     for ele in history:
         if i == 0:
             ele.heuristic = 0
-        search_file.write(str(0) + " " + str(0) + " " + str(ele.heuristic) + " " + getArrayInString(ele.state) +"\n")
+        search_file.write(str(0) + " " + str(0) + " " + str(ele.heuristic) + " " + get_array_in_string(ele.state) + "\n")
 
 
 def write_solution(solution_file, start_time, solution):
@@ -136,6 +136,6 @@ def write_solution(solution_file, start_time, solution):
 
     for ele in solution:
         total_cost += ele.cost
-        solution_file.write(str(get_index_of_zero(ele.state)) + " " + str(ele.cost) + " " + getArrayInString(ele.state) +"\n")
+        solution_file.write(str(get_index_of_zero(ele.state)) + " " + str(ele.cost) + " " + get_array_in_string(ele.state) + "\n")
 
     solution_file.write(str(total_cost) + " " + str(time_to_complete))

@@ -45,6 +45,7 @@ def get_best_f(node, heuristic, parent, closed):
     f2 = f(node, goal_state2, heuristic, parent, closed)
     if f1 > f2:
         return f2
+
     else:
         return f1
 
@@ -70,7 +71,9 @@ def a_star(puzzle, heuristic_no):
     entry = 0 # serves as a tie break for items with the same priority so they are popped in FIFO order
 
     start_node = Node(None, puzzle.state, 0)
+    
     f_init= get_best_f(start_node, heuristic_no, None, closed_list)
+
     start_node.f_val = f_init
     heapq.heappush(open_list, (start_node.f_val, entry, start_node))
     current = heapq.heappop(open_list)[2] # set current node to the initial state to start the search
@@ -180,6 +183,7 @@ def solve_astar(puzzle_index, puzzle_array):
                     solution_file.write(tc+" " + getArrayInString(step.state) +"\n")
                     total_cost = get_cost(visited[len(visited)-1], visited[visited[len(visited) - 1].parent_index], visited)
                 solution_file.write(str(total_cost)+" "+str(round(end_time - start_time, 4)))
+
 
             index = 0
             with open("output/" + str(puzzle_index) + "_astar-" + h_to_text(i) + "_search.txt", "w") as search_file:
