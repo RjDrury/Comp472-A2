@@ -13,5 +13,5 @@ GBFS and A* use one of two heuristics to find their solutions
 * modified manhattan distance that takes into account the effect of diagonal moves and always returns a value 
 h() <= h*(n) so that it is admissible
 
-to generate the solutions, run <python app.py>  and solutions for 50 puzzles will be generated using UCS and two 
+to generate the solutions, run `python app.py`  and solutions for 50 puzzles will be generated using UCS and two 
 versions of GBFS and A*- one with heuristic 1 and one with heuristic 2
