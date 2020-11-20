@@ -69,7 +69,8 @@ def gbfs(puzzle, heuristicIndex, start_time):
         solution.append(goal_state)
     else:
         solution = "no solution"
-        return solution, close, cost
+        close = "no solution"
+        return solution, close
 
     # get solution from closed nodes + total cost os solution
     for ele in solution:
@@ -106,7 +107,7 @@ def pop_element_from_array(initial_array, element):
 
 
 def solve_gbfs(puzzle_array, puzzle_index):
-    for i in range(1, 3):
+    for i in range(0, 1):
         print('- heuristic:', i)
         puzzle = Puzzle(puzzle_array)
         start_time = time.time()

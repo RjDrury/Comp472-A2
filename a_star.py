@@ -157,7 +157,7 @@ def a_star(puzzle, heuristic_no):
 
 def solve_astar(puzzle_index, puzzle_array):
     puzzle = Puzzle(puzzle_array)
-    for i in range(1, 3):
+    for i in range(0, 1):
         print('- heuristic:', i)
         start_time = time.time()
         solution, visited = a_star(puzzle, i)
