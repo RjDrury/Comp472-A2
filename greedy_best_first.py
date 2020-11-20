@@ -121,6 +121,10 @@ def solve_gbfs(puzzle_array, puzzle_index):
 
 
 def write_search(search_file, history, i):
+    if history == "no solution":
+        search_file.write(history)
+        return
+
     for ele in history:
         if i == 0:
             ele.heuristic = 0
@@ -128,6 +132,10 @@ def write_search(search_file, history, i):
 
 
 def write_solution(solution_file, start_time, solution):
+    if solution == "no solution":
+        solution_file.write(solution)
+        return
+
     total_cost = 0
     time_to_complete = str(time.time() - start_time)
 
